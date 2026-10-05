@@ -102,16 +102,32 @@ export default function VirtualAgentShowcase() {
     }, 400);
   };
 
-  const handleVerificationSubmit = (e) => {
+  const handleVerificationSubmit = async (e) => {
     e.preventDefault();
     if (!userDetails.name || !userDetails.email) return;
     setBookingStep('confirmed');
 
     try {
+      fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: userDetails.name,
+          email: userDetails.email,
+          slot: `${selectedDayTime.day} at ${selectedDayTime.time}`,
+          _subject: `Apex Clinic Demo Booking Lead from ${userDetails.name}`
+        })
+      });
+    } catch (err) {}
+
+    try {
       confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
     } catch (err) {}
 
-    addMessage('agent', `Perfect, ${userDetails.name}! Your consultation for ${selectedDayTime.day} at ${selectedDayTime.time} is reserved. An email verification link has been dispatched to ${userDetails.email} to approve your booking.`, {
+    addMessage('agent', `Perfect, ${userDetails.name}! Your consultation for ${selectedDayTime.day} at ${selectedDayTime.time} is reserved. An email verification link has been dispatched to ${userDetails.email} and notified to indigoaikj@gmail.com.`, {
       isConfirmedBadge: true,
       email: userDetails.email,
       slot: selectedDayTime

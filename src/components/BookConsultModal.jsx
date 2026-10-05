@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { X, Calendar, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, Calendar, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function BookConsultModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -13,12 +14,34 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStep(2);
+    setIsSubmitting(true);
+
     try {
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-    } catch (e) {}
+      await fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          website: formData.website,
+          preferredDate: formData.preferredDate,
+          _subject: `New Strategy Booking Request from ${formData.name}`
+        })
+      });
+    } catch (err) {
+      console.log("Booking submission fallback:", err);
+    } finally {
+      setIsSubmitting(false);
+      setStep(2);
+      try {
+        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+      } catch (err) {}
+    }
   };
 
   return (
@@ -99,10 +122,20 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full btn-blue-primary justify-center text-xs py-2.5 mt-2"
               >
-                <span>Confirm Strategy Reservation</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Dispatching to indigoaikj@gmail.com...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1.5">
+                    <span>Confirm Strategy Reservation</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                )}
               </button>
             </form>
           </div>
@@ -114,7 +147,7 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
             <h3 className="text-xl font-bold text-slate-900">Reservation Confirmed</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. A calendar invite has been dispatched to <strong>{formData.email}</strong> for <strong>{formData.preferredDate}</strong>.
+              Thank you, <strong>{formData.name}</strong>. Your strategy call request has been sent directly to <strong>indigoaikj@gmail.com</strong>.
             </p>
 
             <button
@@ -130,3 +163,4 @@ export default function BookConsultModal({ isOpen, onClose }) {
     </div>
   );
 }
+

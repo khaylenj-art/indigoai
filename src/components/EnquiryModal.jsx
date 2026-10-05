@@ -1,23 +1,55 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, ArrowRight, Mail, Globe } from 'lucide-react';
+import { X, CheckCircle2, ArrowRight, Mail, Loader2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function EnquiryModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    websiteUrl: ''
+    websiteUrl: '',
+    message: ''
   });
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setStep(2);
+    setIsSubmitting(true);
+
+    const autoReplyText = `Hi ${formData.name},\n\nThank you for reaching out to Indigo AI! We have received your enquiry regarding ${formData.websiteUrl || 'your website'}.\n\nOur team is currently reviewing your request and preparing a custom Virtual Agent preview. We will follow up with you shortly.\n\nBest regards,\nKhaylen Jacobs\nIndigo AI Team`;
+
+    const proposedReplyTemplate = `Hi ${formData.name},\n\nThanks for reaching out to Indigo AI!\n\nWe have reviewed your site (${formData.websiteUrl}) and prepared a custom Virtual Agent preview showing how an AI receptionist can handle your customer enquiries 24/7.\n\nWould you have 10 minutes open tomorrow for a quick preview call?\n\nBest regards,\nKhaylen Jacobs | Indigo AI`;
+
     try {
-      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-    } catch (e) {}
+      await fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          "Client Name": formData.name,
+          "Client Email": formData.email,
+          "Website URL / Business": formData.websiteUrl,
+          "Client Message": formData.message || "Request for Custom Virtual Agent Preview",
+          "_replyto": formData.email,
+          "_subject": `⚡ New Website Enquiry from ${formData.name}`,
+          "_autoresponse": autoReplyText,
+          "_template": "table",
+          "--- READY-TO-SEND REPLY TEMPLATE FOR YOU ---": proposedReplyTemplate
+        })
+      });
+    } catch (err) {
+      console.log("Enquiry submission fallback:", err);
+    } finally {
+      setIsSubmitting(false);
+      setStep(2);
+      try {
+        confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
+      } catch (err) {}
+    }
   };
 
   return (
@@ -36,14 +68,14 @@ export default function EnquiryModal({ isOpen, onClose }) {
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold mb-3 border border-sky-100">
               <Mail className="w-3.5 h-3.5" />
-              <span>Website & Virtual Agent Enquiry</span>
+              <span>Direct Email • indigoaikj@gmail.com</span>
             </div>
 
             <h3 className="text-xl font-bold text-slate-900 tracking-tight">
               Request Your Custom Virtual Agent Preview
             </h3>
             <p className="text-slate-600 text-xs mt-1 leading-relaxed">
-              Enter your Name and Website URL below. We will analyze your site and email you a Virtual Agent preview for your business.
+              Enter your details below. Your enquiry will be sent directly to <strong>indigoaikj@gmail.com</strong> with an automatic reply sent to the client.
             </p>
 
             <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
@@ -72,7 +104,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Your Website URL</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Your Website URL or Business Name</label>
                 <input
                   required
                   type="text"
@@ -83,12 +115,33 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 />
               </div>
 
+              <div>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">Enquiry Details (Optional)</label>
+                <textarea
+                  rows="2"
+                  placeholder="How can we help your business?"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900"
+                />
+              </div>
+
               <button
                 type="submit"
-                className="w-full btn-blue-primary justify-center text-xs py-2.5 mt-2"
+                disabled={isSubmitting}
+                className="w-full btn-blue-primary justify-center text-xs py-2.5 mt-2 shadow-sm"
               >
-                <span>Submit Enquiry</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Sending to indigoaikj@gmail.com...
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-1.5">
+                    <span>Submit Enquiry</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                )}
               </button>
             </form>
           </div>
@@ -98,9 +151,9 @@ export default function EnquiryModal({ isOpen, onClose }) {
               <CheckCircle2 className="w-6 h-6" />
             </div>
 
-            <h3 className="text-xl font-bold text-slate-900">Enquiry Submitted!</h3>
+            <h3 className="text-xl font-bold text-slate-900">Enquiry Sent Successfully!</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. We have received your request for <strong>{formData.websiteUrl}</strong>. Our team will email your custom Virtual Agent preview to <strong>{formData.email}</strong> within 24 hours.
+              Thank you, <strong>{formData.name}</strong>. Your enquiry has been sent directly to <strong>indigoaikj@gmail.com</strong>. An automated confirmation email was sent to <strong>{formData.email}</strong>, and our team will get back to you shortly.
             </p>
 
             <button
@@ -116,3 +169,5 @@ export default function EnquiryModal({ isOpen, onClose }) {
     </div>
   );
 }
+
+
