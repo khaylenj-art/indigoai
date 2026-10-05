@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, ArrowRight, Mail, Loader2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { sendEmailToIndigo } from '../utils/sendEmail';
 
 export default function EnquiryModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
@@ -18,38 +19,19 @@ export default function EnquiryModal({ isOpen, onClose }) {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const autoReplyText = `Hi ${formData.name},\n\nThank you for reaching out to Indigo AI! We have received your enquiry regarding ${formData.websiteUrl || 'your website'}.\n\nOur team is currently reviewing your request and preparing a custom Virtual Agent preview. We will follow up with you shortly.\n\nBest regards,\nKhaylen Jacobs\nIndigo AI Team`;
+    await sendEmailToIndigo({
+      name: formData.name,
+      email: formData.email,
+      websiteUrl: formData.websiteUrl,
+      message: formData.message,
+      subject: `⚡ New Website Enquiry from ${formData.name}`
+    });
 
-    const proposedReplyTemplate = `Hi ${formData.name},\n\nThanks for reaching out to Indigo AI!\n\nWe have reviewed your site (${formData.websiteUrl}) and prepared a custom Virtual Agent preview showing how an AI receptionist can handle your customer enquiries 24/7.\n\nWould you have 10 minutes open tomorrow for a quick preview call?\n\nBest regards,\nKhaylen Jacobs | Indigo AI`;
-
+    setIsSubmitting(false);
+    setStep(2);
     try {
-      await fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          "Client Name": formData.name,
-          "Client Email": formData.email,
-          "Website URL / Business": formData.websiteUrl,
-          "Client Message": formData.message || "Request for Custom Virtual Agent Preview",
-          "_replyto": formData.email,
-          "_subject": `⚡ New Website Enquiry from ${formData.name}`,
-          "_autoresponse": autoReplyText,
-          "_template": "table",
-          "--- READY-TO-SEND REPLY TEMPLATE FOR YOU ---": proposedReplyTemplate
-        })
-      });
-    } catch (err) {
-      console.log("Enquiry submission fallback:", err);
-    } finally {
-      setIsSubmitting(false);
-      setStep(2);
-      try {
-        confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
-      } catch (err) {}
-    }
+      confetti({ particleCount: 85, spread: 70, origin: { y: 0.6 } });
+    } catch (err) {}
   };
 
   return (
@@ -78,12 +60,22 @@ export default function EnquiryModal({ isOpen, onClose }) {
               Enter your details below. Your enquiry will be sent directly to <strong>indigoaikj@gmail.com</strong> with an automatic reply sent to the client.
             </p>
 
-            <form onSubmit={handleSubmit} className="mt-5 space-y-3.5">
+            <form 
+              action="https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871" 
+              method="POST" 
+              onSubmit={handleSubmit} 
+              className="mt-5 space-y-3.5"
+            >
+              {/* Hidden FormSubmit Subject & Settings */}
+              <input type="hidden" name="_subject" value="New website enquiry" />
+              <input type="hidden" name="_template" value="table" />
+
               <div>
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Your Full Name</label>
                 <input
                   required
                   type="text"
+                  name="name"
                   placeholder="Sarah Jenkins"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -96,6 +88,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 <input
                   required
                   type="email"
+                  name="email"
                   placeholder="sarah@company.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -108,6 +101,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 <input
                   required
                   type="text"
+                  name="websiteUrl"
                   placeholder="https://yourcompany.com"
                   value={formData.websiteUrl}
                   onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
@@ -119,6 +113,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 <label className="block text-xs font-semibold text-slate-700 mb-1">Enquiry Details (Optional)</label>
                 <textarea
                   rows="2"
+                  name="message"
                   placeholder="How can we help your business?"
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -134,7 +129,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Sending to indigoaikj@gmail.com...
+                    Sending Enquiry...
                   </span>
                 ) : (
                   <span className="flex items-center gap-1.5">
@@ -169,5 +164,6 @@ export default function EnquiryModal({ isOpen, onClose }) {
     </div>
   );
 }
+
 
 

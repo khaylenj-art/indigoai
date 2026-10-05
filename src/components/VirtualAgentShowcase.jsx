@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Bot, Send, CheckCircle2, Calendar, Mail, Clock, RefreshCw, ShieldCheck, Tag } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { sendEmailToIndigo } from '../utils/sendEmail';
 
 export default function VirtualAgentShowcase() {
   const [messages, setMessages] = useState([
@@ -107,21 +108,12 @@ export default function VirtualAgentShowcase() {
     if (!userDetails.name || !userDetails.email) return;
     setBookingStep('confirmed');
 
-    try {
-      fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          name: userDetails.name,
-          email: userDetails.email,
-          slot: `${selectedDayTime.day} at ${selectedDayTime.time}`,
-          _subject: `Apex Clinic Demo Booking Lead from ${userDetails.name}`
-        })
-      });
-    } catch (err) {}
+    sendEmailToIndigo({
+      name: userDetails.name,
+      email: userDetails.email,
+      slot: `${selectedDayTime.day} at ${selectedDayTime.time}`,
+      subject: `⚡ Apex Clinic Demo Booking Lead from ${userDetails.name}`
+    });
 
     try {
       confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });

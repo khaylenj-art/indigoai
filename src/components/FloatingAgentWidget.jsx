@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Bot, X, Send, ArrowRight, Mail, CheckCircle2, Loader2 } from 'lucide-react';
+import { sendEmailToIndigo } from '../utils/sendEmail';
 
 export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
   // Auto pop up when user lands on page
@@ -85,46 +86,27 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
 
     setIsSubmittingEnquiry(true);
 
-    const autoReplyText = `Hi ${inChatEnquiry.name},\n\nThank you for reaching out to Indigo AI via our website assistant!\n\nWe have received your enquiry and our team will get back to you shortly.\n\nBest regards,\nKhaylen Jacobs | Indigo AI Team`;
+    await sendEmailToIndigo({
+      name: inChatEnquiry.name,
+      email: inChatEnquiry.email,
+      message: inChatEnquiry.message,
+      subject: `⚡ New Enquiry from ${inChatEnquiry.name} via Chatbot`
+    });
 
-    const proposedReplyTemplate = `Hi ${inChatEnquiry.name},\n\nThanks for reaching out to Indigo AI!\n\nWe received your enquiry (${inChatEnquiry.message || 'Website Virtual Agent setup'}). We would love to walk you through a live preview of how an autonomous Virtual Agent can capture leads on your site 24/7.\n\nDo you have 10 minutes open tomorrow for a quick preview call?\n\nBest regards,\nKhaylen Jacobs | Indigo AI`;
+    setIsSubmittingEnquiry(false);
+    setShowInChatForm(false);
 
-    try {
-      await fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          "Client Name": inChatEnquiry.name,
-          "Client Email": inChatEnquiry.email,
-          "Client Message": inChatEnquiry.message || "Enquiry submitted via Indigo AI Chatbot",
-          "_replyto": inChatEnquiry.email,
-          "_subject": `⚡ New Enquiry from ${inChatEnquiry.name} via Chatbot`,
-          "_autoresponse": autoReplyText,
-          "_template": "table",
-          "--- READY-TO-SEND REPLY TEMPLATE FOR YOU ---": proposedReplyTemplate
-        })
-      });
-    } catch (err) {
-      console.log("Enquiry submission fallback:", err);
-    } finally {
-      setIsSubmittingEnquiry(false);
-      setShowInChatForm(false);
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: Date.now(),
+        sender: 'agent',
+        text: `Thank you, ${inChatEnquiry.name}! Your enquiry has been sent directly to indigoaikj@gmail.com, and an automatic confirmation email has been dispatched to ${inChatEnquiry.email}.`,
+        isSuccessBadge: true
+      }
+    ]);
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now(),
-          sender: 'agent',
-          text: `Thank you, ${inChatEnquiry.name}! Your enquiry has been sent directly to indigoaikj@gmail.com, and an automatic confirmation email has been dispatched to ${inChatEnquiry.email}.`,
-          isSuccessBadge: true
-        }
-      ]);
-
-      setInChatEnquiry({ name: '', email: '', message: '' });
-    }
+    setInChatEnquiry({ name: '', email: '', message: '' });
   };
 
   return (
@@ -195,14 +177,23 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
 
                   {/* Embedded Form for Direct Enquiry */}
                   {m.showEnquiryForm && (
-                    <form onSubmit={handleDirectEnquirySubmit} className="mt-3 pt-3 border-t border-slate-100 space-y-2">
+                    <form 
+                      action="https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871"
+                      method="POST"
+                      onSubmit={handleDirectEnquirySubmit} 
+                      className="mt-3 pt-3 border-t border-slate-100 space-y-2"
+                    >
+                      <input type="hidden" name="_subject" value="New website enquiry" />
+                      <input type="hidden" name="_template" value="table" />
+                      
                       <div className="text-[11px] font-bold text-slate-700 flex items-center gap-1">
                         <Mail className="w-3.5 h-3.5 text-sky-600" />
-                        <span>Send enquiry to indigoaikj@gmail.com</span>
+                        <span>Send enquiry to Indigo AI</span>
                       </div>
                       <input
                         required
                         type="text"
+                        name="name"
                         placeholder="Your Name"
                         value={inChatEnquiry.name}
                         onChange={(e) => setInChatEnquiry({ ...inChatEnquiry, name: e.target.value })}
@@ -211,6 +202,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
                       <input
                         required
                         type="email"
+                        name="email"
                         placeholder="Your Email Address"
                         value={inChatEnquiry.email}
                         onChange={(e) => setInChatEnquiry({ ...inChatEnquiry, email: e.target.value })}
@@ -218,6 +210,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
                       />
                       <textarea
                         rows="2"
+                        name="message"
                         placeholder="Your Enquiry / Details"
                         value={inChatEnquiry.message}
                         onChange={(e) => setInChatEnquiry({ ...inChatEnquiry, message: e.target.value })}
@@ -231,7 +224,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
                         {isSubmittingEnquiry ? (
                           <span className="flex items-center gap-1.5">
                             <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                            Sending to indigoaikj@gmail.com...
+                            Sending Enquiry...
                           </span>
                         ) : (
                           <span className="flex items-center gap-1.5">

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Calendar, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { sendEmailToIndigo } from '../utils/sendEmail';
 
 export default function BookConsultModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
@@ -18,30 +19,19 @@ export default function BookConsultModal({ isOpen, onClose }) {
     e.preventDefault();
     setIsSubmitting(true);
 
+    await sendEmailToIndigo({
+      name: formData.name,
+      email: formData.email,
+      website: formData.website,
+      slot: formData.preferredDate,
+      subject: `⚡ New Strategy Booking Request from ${formData.name}`
+    });
+
+    setIsSubmitting(false);
+    setStep(2);
     try {
-      await fetch("https://formsubmit.co/ajax/indigoaikj@gmail.com", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          website: formData.website,
-          preferredDate: formData.preferredDate,
-          _subject: `New Strategy Booking Request from ${formData.name}`
-        })
-      });
-    } catch (err) {
-      console.log("Booking submission fallback:", err);
-    } finally {
-      setIsSubmitting(false);
-      setStep(2);
-      try {
-        confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-      } catch (err) {}
-    }
+      confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+    } catch (err) {}
   };
 
   return (
