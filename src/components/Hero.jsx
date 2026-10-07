@@ -19,11 +19,8 @@ export default function Hero({ onOpenEnquiryModal, onScrollToDemo }) {
       <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
         
         {/* Main Headline */}
-        <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12] max-w-4xl mx-auto">
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12] max-w-4xl mx-auto">
           Turn website visitors into booked customers — 24/7.
-          <span className="block text-xl md:text-3xl font-semibold text-sky-600 mt-3">
-            And now we build modern websites equipped with autonomous Virtual Agents
-          </span>
         </h1>
 
         {/* Small text under subhead */}

@@ -31,10 +31,10 @@ export default function PricingSection({ onOpenEnquiryModal }) {
         </div>
 
         {/* Single Pricing Card */}
-        <div className="bg-gradient-to-b from-sky-50/80 to-white rounded-3xl p-8 md:p-12 border-2 border-sky-600 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-b from-sky-50/80 to-white rounded-3xl p-5 sm:p-8 md:p-12 border-2 border-sky-600 shadow-xl relative overflow-hidden">
           
           {/* Top Badge */}
-          <div className="absolute top-4 right-4 bg-sky-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          <div className="inline-block sm:absolute sm:top-4 sm:right-4 bg-sky-600 text-white text-[9px] sm:text-[11px] font-bold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider mb-4 sm:mb-0">
             All-Inclusive Solution
           </div>
 

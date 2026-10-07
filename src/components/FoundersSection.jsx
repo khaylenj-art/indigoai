@@ -54,7 +54,7 @@ export default function FoundersSection() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
-                <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-sky-600 text-white text-[10px] font-bold px-3 py-0.5 rounded-full shadow-sm tracking-wide uppercase">
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-sky-600 text-white text-[8px] sm:text-[10px] font-bold px-2 py-0.5 sm:px-3 rounded-full shadow-xs tracking-wide uppercase whitespace-nowrap">
                   Indigo AI
                 </div>
               </div>

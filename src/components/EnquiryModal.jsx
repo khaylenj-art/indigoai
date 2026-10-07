@@ -48,16 +48,11 @@ export default function EnquiryModal({ isOpen, onClose }) {
 
         {step === 1 ? (
           <div>
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold mb-3 border border-sky-100">
-              <Mail className="w-3.5 h-3.5" />
-              <span>Direct Email • khaylenj@indigo.irish</span>
-            </div>
-
             <h3 className="text-xl font-bold text-slate-900 tracking-tight">
-              Request Your Custom Virtual Agent Preview
+              Request Your Custom Virtual Agent
             </h3>
             <p className="text-slate-600 text-xs mt-1 leading-relaxed">
-              Enter your details below. Your enquiry will be sent directly to <strong>khaylenj@indigo.irish</strong> with an automatic reply sent to the client.
+              Enter your details below to get a custom preview built for your website.
             </p>
 
             <form 
@@ -110,11 +105,11 @@ export default function EnquiryModal({ isOpen, onClose }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Enquiry Details (Optional)</label>
+                <label className="block text-xs font-semibold text-slate-700 mb-1">What kind of business do you have?</label>
                 <textarea
                   rows="2"
                   name="message"
-                  placeholder="How can we help your business?"
+                  placeholder="e.g. Dental Clinic, E-commerce, Real Estate, Legal Agency..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs focus:outline-none focus:ring-2 focus:ring-sky-500 text-slate-900"
@@ -133,7 +128,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
                   </span>
                 ) : (
                   <span className="flex items-center gap-1.5">
-                    <span>Submit Enquiry</span>
+                    <span>Submit Request</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
                 )}
@@ -148,7 +143,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
 
             <h3 className="text-xl font-bold text-slate-900">Enquiry Sent Successfully!</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. Your enquiry has been sent directly to <strong>khaylenj@indigo.irish</strong>. An automated confirmation email was sent to <strong>{formData.email}</strong>, and our team will get back to you shortly.
+              Thank you, <strong>{formData.name}</strong>. Your enquiry has been received and our team will get back to you shortly.
             </p>
 
             <button

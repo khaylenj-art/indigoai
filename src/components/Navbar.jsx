@@ -34,8 +34,8 @@ export default function Navbar({ onOpenEnquiryModal }) {
           </div>
         </div>
 
-        {/* Center Status Indicator */}
-        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200/70 text-sky-800 text-xs font-semibold shadow-xs">
+        {/* Center Status Indicator - Hidden on Mobile, Visible on Tablet/PC */}
+        <div className="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sky-50 border border-sky-200/70 text-sky-800 text-xs font-semibold shadow-xs">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-600"></span>
