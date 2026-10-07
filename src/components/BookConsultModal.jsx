@@ -118,7 +118,7 @@ export default function BookConsultModal({ isOpen, onClose }) {
                 {isSubmitting ? (
                   <span className="flex items-center gap-2">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Dispatching to indigoaikj@gmail.com...
+                    Dispatching to khaylenj@indigo.irish...
                   </span>
                 ) : (
                   <span className="flex items-center gap-1.5">
@@ -137,7 +137,7 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
             <h3 className="text-xl font-bold text-slate-900">Reservation Confirmed</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. Your strategy call request has been sent directly to <strong>indigoaikj@gmail.com</strong>.
+              Thank you, <strong>{formData.name}</strong>. Your strategy call request has been sent directly to <strong>khaylenj@indigo.irish</strong>.
             </p>
 
             <button

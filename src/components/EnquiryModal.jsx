@@ -50,14 +50,14 @@ export default function EnquiryModal({ isOpen, onClose }) {
           <div>
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-semibold mb-3 border border-sky-100">
               <Mail className="w-3.5 h-3.5" />
-              <span>Direct Email • indigoaikj@gmail.com</span>
+              <span>Direct Email • khaylenj@indigo.irish</span>
             </div>
 
             <h3 className="text-xl font-bold text-slate-900 tracking-tight">
               Request Your Custom Virtual Agent Preview
             </h3>
             <p className="text-slate-600 text-xs mt-1 leading-relaxed">
-              Enter your details below. Your enquiry will be sent directly to <strong>indigoaikj@gmail.com</strong> with an automatic reply sent to the client.
+              Enter your details below. Your enquiry will be sent directly to <strong>khaylenj@indigo.irish</strong> with an automatic reply sent to the client.
             </p>
 
             <form 
@@ -148,7 +148,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
 
             <h3 className="text-xl font-bold text-slate-900">Enquiry Sent Successfully!</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. Your enquiry has been sent directly to <strong>indigoaikj@gmail.com</strong>. An automated confirmation email was sent to <strong>{formData.email}</strong>, and our team will get back to you shortly.
+              Thank you, <strong>{formData.name}</strong>. Your enquiry has been sent directly to <strong>khaylenj@indigo.irish</strong>. An automated confirmation email was sent to <strong>{formData.email}</strong>, and our team will get back to you shortly.
             </p>
 
             <button

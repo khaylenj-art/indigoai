@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import FoundersSection from './components/FoundersSection';
 import VirtualAgentShowcase from './components/VirtualAgentShowcase';
-import RoiCalculator from './components/RoiCalculator';
 import KnowledgeBaseTraining from './components/KnowledgeBaseTraining';
 import PricingSection from './components/PricingSection';
 import FloatingAgentWidget from './components/FloatingAgentWidget';
@@ -48,9 +47,6 @@ export default function App() {
 
       {/* Virtual Agent Demo (Sales & Booking Capabilities) */}
       <VirtualAgentShowcase />
-
-      {/* Interactive Revenue Loss Calculator */}
-      <RoiCalculator onOpenEnquiryModal={() => setIsEnquiryModalOpen(true)} />
 
       {/* Knowledge Base Training */}
       <KnowledgeBaseTraining />

@@ -7,15 +7,13 @@ export default function FoundersSection() {
       name: 'Khaylen Jacobs',
       role: 'Co - Founder',
       title: 'Co-Founder & AI Systems Architect',
-      image: '/khaylen.jpg',
-      bio: 'Engineering autonomous AI workflows and high-converting web applications that allow businesses to respond to leads instantly.'
+      image: '/khaylen.jpg'
     },
     {
       name: 'Ahkeel Khan',
       role: 'Co - Founder',
       title: 'Co-Founder & Lead Engineer',
-      image: '/akheel.jpeg',
-      bio: 'Building scalable web applications integrated with intelligent Virtual Agents, automated scheduling, and instant lead routing.'
+      image: '/akheel.jpeg'
     }
   ];
 
@@ -76,11 +74,6 @@ export default function FoundersSection() {
               <div className="text-xs font-medium text-slate-500 mt-1">
                 {founder.title}
               </div>
-
-              {/* Bio / Mission statement */}
-              <p className="mt-4 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xs">
-                {founder.bio}
-              </p>
             </div>
           ))}
         </div>

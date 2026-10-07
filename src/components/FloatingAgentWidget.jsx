@@ -63,7 +63,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
       let reply = { id: Date.now() + 1, sender: 'agent', ...extra };
 
       if (extra.showForm || lower.includes('enquiry') || lower.includes('contact') || lower.includes('submit')) {
-        reply.text = "You can submit your enquiry below and we will deliver it straight to indigoaikj@gmail.com:";
+        reply.text = "You can submit your enquiry below and we will deliver it straight to khaylenj@indigo.irish:";
         reply.showEnquiryForm = true;
       } else if (lower.includes('price') || lower.includes('pricing') || lower.includes('cost') || lower.includes('plan')) {
         reply.text = "Our all-inclusive pricing is simple and transparent: €550 one-time setup fee + €149/month. This includes your custom website build, 24/7 Virtual Agent, e-commerce/booking integrations, knowledge base training, and ongoing cloud operations.";
@@ -72,7 +72,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
         reply.text = "We deploy your custom website & Virtual Agent in under 48 hours, fully trained on your business documents and brand rules.";
         reply.options = ["What are your pricing plans?", "Submit an enquiry"];
       } else {
-        reply.text = "Thank you for reaching out! Would you like to submit an official enquiry to our team at indigoaikj@gmail.com?";
+        reply.text = "Thank you for reaching out! Would you like to submit an official enquiry to our team at khaylenj@indigo.irish?";
         reply.options = ["Submit an enquiry", "What are your pricing plans?"];
       }
 
@@ -101,7 +101,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
       {
         id: Date.now(),
         sender: 'agent',
-        text: `Thank you, ${inChatEnquiry.name}! Your enquiry has been sent directly to indigoaikj@gmail.com, and an automatic confirmation email has been dispatched to ${inChatEnquiry.email}.`,
+        text: `Thank you, ${inChatEnquiry.name}! Your enquiry has been sent directly to khaylenj@indigo.irish, and an automatic confirmation email has been dispatched to ${inChatEnquiry.email}.`,
         isSuccessBadge: true
       }
     ]);
@@ -240,7 +240,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
                   {m.isSuccessBadge && (
                     <div className="mt-2 p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-900 text-[11px] flex items-center gap-2 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>Sent to <strong>indigoaikj@gmail.com</strong></span>
+                      <span>Sent to <strong>khaylenj@indigo.irish</strong></span>
                     </div>
                   )}
                 </div>

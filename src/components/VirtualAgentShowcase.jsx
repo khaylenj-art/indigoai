@@ -119,7 +119,7 @@ export default function VirtualAgentShowcase() {
       confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
     } catch (err) {}
 
-    addMessage('agent', `Perfect, ${userDetails.name}! Your consultation for ${selectedDayTime.day} at ${selectedDayTime.time} is reserved. An email verification link has been dispatched to ${userDetails.email} and notified to indigoaikj@gmail.com.`, {
+    addMessage('agent', `Perfect, ${userDetails.name}! Your consultation for ${selectedDayTime.day} at ${selectedDayTime.time} is reserved. An email verification link has been dispatched to ${userDetails.email} and notified to khaylenj@indigo.irish.`, {
       isConfirmedBadge: true,
       email: userDetails.email,
       slot: selectedDayTime

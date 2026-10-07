@@ -89,7 +89,7 @@ export default function LegalModal({ isOpen, onClose, defaultTab = 'privacy' }) 
 
               <h4 className="text-base font-bold text-slate-900">4. Your Data Rights</h4>
               <p>
-                You may request a copy of all stored data or request immediate deletion of your business records at any time by emailing <strong>indigoaikj@gmail.com</strong>.
+                You may request a copy of all stored data or request immediate deletion of your business records at any time by emailing <strong>khaylenj@indigo.irish</strong>.
               </p>
             </div>
           ) : (
@@ -101,7 +101,7 @@ export default function LegalModal({ isOpen, onClose, defaultTab = 'privacy' }) 
 
               <h4 className="text-base font-bold text-slate-900">2. Guarantee & Same-Day Cancellation</h4>
               <p>
-                We stand behind our work. If you order a website build or Virtual Agent setup and decide to cancel on the same day, we offer a 100% full money-back refund with no questions asked.
+                We stand behind our work. If you order a website build or Virtual Agent setup and decide to cancel on the same day, simply notify our team and your cancellation request will be processed immediately.
               </p>
 
               <h4 className="text-base font-bold text-slate-900">3. Transparent Pricing</h4>
