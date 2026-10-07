@@ -178,7 +178,7 @@ export default function FloatingAgentWidget({ onOpenEnquiryModal }) {
                   {/* Embedded Form for Direct Enquiry */}
                   {m.showEnquiryForm && (
                     <form 
-                      action="https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871"
+                      action="https://formspree.io/f/xjygyrzo"
                       method="POST"
                       onSubmit={handleDirectEnquirySubmit} 
                       className="mt-3 pt-3 border-t border-slate-100 space-y-2"

@@ -44,7 +44,10 @@ export default function Navbar({ onOpenEnquiryModal }) {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 text-xs font-medium text-slate-600">
+        <div className="hidden md:flex items-center gap-7 text-xs font-medium text-slate-600">
+          <button onClick={() => scrollToSection('founders')} className="hover:text-sky-600 transition-colors font-semibold text-slate-800">
+            Co-Founders
+          </button>
           <button onClick={() => scrollToSection('virtual-agent-demo')} className="hover:text-sky-600 transition-colors">
             Virtual Agent Demo
           </button>
@@ -77,6 +80,9 @@ export default function Navbar({ onOpenEnquiryModal }) {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-6 py-4 space-y-3 text-sm">
+          <button onClick={() => scrollToSection('founders')} className="block w-full text-left py-2 font-semibold text-sky-700">
+            Co-Founders
+          </button>
           <button onClick={() => scrollToSection('virtual-agent-demo')} className="block w-full text-left py-2 font-medium text-slate-700">
             Virtual Agent Demo
           </button>

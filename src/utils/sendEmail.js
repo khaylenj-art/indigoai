@@ -1,11 +1,35 @@
 /**
- * FormSubmit Integration Utility for Vercel Static Deployment
- * FormSubmit Hash Endpoint: https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871
+ * Formspree Integration Utility for Indigo AI
+ * Target Endpoint: https://formspree.io/f/xjygyrzo
  */
 export async function sendEmailToIndigo(data) {
+  try {
+    const response = await fetch('https://formspree.io/f/xjygyrzo', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: data.name || "Website Visitor",
+        email: data.email || "",
+        websiteUrl: data.websiteUrl || data.website || "",
+        message: data.message || data.slot || data.subject || "New Website Enquiry",
+        subject: data.subject || `New Enquiry from ${data.name || 'Website Visitor'}`,
+        _replyto: data.email || ""
+      })
+    });
+
+    if (response.ok) {
+      return true;
+    }
+  } catch (err) {
+    console.warn("Formspree fetch submission notice, falling back to form post:", err);
+  }
+
+  // Fallback iframe form submit to Formspree hash URL
   return new Promise((resolve) => {
     try {
-      // Create hidden iframe target to prevent page redirect on Vercel
       let iframe = document.getElementById('indigo_form_target_iframe');
       if (!iframe) {
         iframe = document.createElement('iframe');
@@ -15,9 +39,8 @@ export async function sendEmailToIndigo(data) {
         document.body.appendChild(iframe);
       }
 
-      // Create standard HTML form submitting to FormSubmit hash URL
       const form = document.createElement('form');
-      form.action = 'https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871';
+      form.action = 'https://formspree.io/f/xjygyrzo';
       form.method = 'POST';
       form.target = 'indigo_form_target_iframe';
 
@@ -25,11 +48,9 @@ export async function sendEmailToIndigo(data) {
         name: data.name || "Website Visitor",
         email: data.email || "",
         websiteUrl: data.websiteUrl || data.website || "",
-        message: data.message || data.slot || "New Website Enquiry",
-        _subject: "New website enquiry",
-        _replyto: data.email || "",
-        _template: "table",
-        _autoresponse: `Hi ${data.name || 'there'},\n\nThank you for reaching out to Indigo AI!\n\nWe have received your enquiry regarding ${data.websiteUrl || data.website || 'your website'}.\n\nOur team is reviewing your details and will follow up with you shortly.\n\nBest regards,\nKhaylen Jacobs | Indigo AI`
+        message: data.message || data.slot || data.subject || "New Website Enquiry",
+        _subject: data.subject || "New website enquiry from Indigo AI",
+        _replyto: data.email || ""
       };
 
       Object.entries(fields).forEach(([key, value]) => {
@@ -50,8 +71,9 @@ export async function sendEmailToIndigo(data) {
         resolve(true);
       }, 800);
     } catch (err) {
-      console.log("FormSubmit submission notice:", err);
+      console.error("Formspree fallback error:", err);
       resolve(true);
     }
   });
 }
+

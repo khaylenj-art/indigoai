@@ -61,7 +61,7 @@ export default function EnquiryModal({ isOpen, onClose }) {
             </p>
 
             <form 
-              action="https://formsubmit.co/8e0da65c99c09a2264ca0a270a40f871" 
+              action="https://formspree.io/f/xjygyrzo" 
               method="POST" 
               onSubmit={handleSubmit} 
               className="mt-5 space-y-3.5"
