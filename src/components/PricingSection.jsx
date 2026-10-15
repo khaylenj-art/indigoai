@@ -31,10 +31,10 @@ export default function PricingSection({ onOpenEnquiryModal }) {
         </div>
 
         {/* Single Pricing Card */}
-        <div className="bg-gradient-to-b from-sky-50/80 to-white rounded-3xl p-8 md:p-12 border-2 border-sky-600 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-b from-sky-50/80 to-white rounded-3xl p-5 sm:p-8 md:p-12 border-2 border-sky-600 shadow-xl relative overflow-hidden">
           
           {/* Top Badge */}
-          <div className="absolute top-4 right-4 bg-sky-600 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+          <div className="inline-block sm:absolute sm:top-4 sm:right-4 bg-sky-600 text-white text-[9px] sm:text-[11px] font-bold px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full uppercase tracking-wider mb-4 sm:mb-0">
             All-Inclusive Solution
           </div>
 
@@ -45,12 +45,12 @@ export default function PricingSection({ onOpenEnquiryModal }) {
               <span className="text-xs font-bold uppercase tracking-wider text-sky-600">Complete Package</span>
               
               <div className="flex items-baseline gap-2">
-                <span className="text-4xl md:text-5xl font-extrabold text-slate-900">€550</span>
+                <span className="text-4xl md:text-5xl font-extrabold text-slate-900">€250</span>
                 <span className="text-xs font-semibold text-slate-500">one-time setup fee</span>
               </div>
 
               <div className="text-sm font-bold text-sky-700 pt-1">
-                + €149 / month <span className="text-xs font-normal text-slate-600">(hosting, Virtual Agent AI & maintenance)</span>
+                + €95 / month <span className="text-xs font-normal text-slate-600">(hosting, Virtual Agent AI & maintenance)</span>
               </div>
 
               <p className="text-xs text-slate-500 pt-2 leading-relaxed">
@@ -62,7 +62,7 @@ export default function PricingSection({ onOpenEnquiryModal }) {
             <div className="md:col-span-7 bg-white rounded-2xl p-5 border border-sky-100 shadow-sm space-y-2 text-xs text-slate-700">
               <div className="font-bold text-slate-900 flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-sky-600" />
-                <span>What's Included In Your €550 Setup:</span>
+                <span>What's Included In Your €250 Setup:</span>
               </div>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-600">
                 <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-sky-600" /> Complete Website Build</li>

@@ -8,7 +8,7 @@ A modern, high-converting agency website built with React, Vite, and Tailwind CS
 - **24/7 Autonomous Virtual Agent**: Demonstrates interactive appointment booking, day/time slot selection, and email verification dispatch.
 - **Interactive Revenue Loss Calculator**: Real-time interactive slider calculating potential lost revenue from slow replies vs recovered monthly sales.
 - **Trained Knowledge Base Integration**: Highlights how Virtual Agents ingest website URLs, PDFs, and FAQs to answer business questions accurately.
-- **Single Flat-Fee Offer (€550 setup + €149/mo)**: Simple, high-converting pricing breakdown.
+- **Single Flat-Fee Offer (€250 setup + €95/mo)**: Simple, high-converting pricing breakdown.
 - **Name & Website URL Lead Capture**: Enquiry form modals for prospective clients.
 
 ## 🛠️ Tech Stack

@@ -47,8 +47,8 @@ export default function FloatingChatWidget({ onOpenBookModal }) {
         reply.text = "We deploy your custom AI-powered website in under 48 hours, fully trained on your business documents and synced to your calendar.";
         reply.options = ["Schedule a strategy call", "What integrations do you support?"];
       } else if (lower.includes('cost') || lower.includes('price')) {
-        reply.text = "Our packages start from $1,490 for complete website redesign + 24/7 AI Receptionist setup. Most clients recover their investment in week one.";
-        reply.options = ["Schedule a strategy call", "How fast can you set this up?"];
+        reply.text = "Our package is simple and transparent: €250 one-time setup fee + €95/month for your complete website and 24/7 Virtual Agent. Most clients recover their investment in week one.";
+        reply.options = ["Submit an enquiry", "How fast can you set this up?"];
       } else {
         reply.text = "You can lock in a 1-on-1 strategy call with our team below:";
         reply.showCta = true;

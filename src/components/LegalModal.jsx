@@ -106,7 +106,7 @@ export default function LegalModal({ isOpen, onClose, defaultTab = 'privacy' }) 
 
               <h4 className="text-base font-bold text-slate-900">3. Transparent Pricing</h4>
               <p>
-                Our standard service package is billed at a fixed €550 initial setup fee plus €149/month ongoing operations, hosting, and Virtual Agent model maintenance. No hidden charges or surprise lock-in contracts.
+                Our standard service package is billed at a fixed €250 initial setup fee plus €95/month ongoing operations, hosting, and Virtual Agent model maintenance. No hidden charges or surprise lock-in contracts.
               </p>
 
               <h4 className="text-base font-bold text-slate-900">4. Support & Maintenance</h4>
