@@ -1,7 +1,7 @@
 import React from 'react';
-import { Bot, ArrowUpRight, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Bot, ArrowUpRight, ShieldCheck } from 'lucide-react';
 
-export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
+export default function Footer({ onOpenEnquiryModal }) {
   return (
     <footer className="bg-sky-50/60 text-slate-700 pt-16 pb-12 border-t border-sky-100">
       <div className="max-w-6xl mx-auto px-6">
@@ -32,7 +32,7 @@ export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
           
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center font-bold">
+              <div className="w-7 h-7 rounded-lg bg-sky-600 text-white flex items-center justify-center">
                 <Bot className="w-4 h-4" />
               </div>
               <span className="font-bold text-slate-900 text-sm">indigo.ai</span>
@@ -43,9 +43,8 @@ export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
           </div>
 
           <div>
-            <h4 className="font-bold text-slate-900 text-xs mb-2">Platform & Team</h4>
+            <h4 className="font-bold text-slate-900 text-xs mb-2">Platform</h4>
             <ul className="space-y-1.5 text-slate-600 text-[11px]">
-              <li><a href="#founders" className="hover:text-sky-600 transition-colors font-medium">Co-Founders (Khaylen & Ahkeel)</a></li>
               <li><a href="#virtual-agent-demo" className="hover:text-sky-600 transition-colors">Virtual Agent Demo</a></li>
               <li><a href="#knowledge-base" className="hover:text-sky-600 transition-colors">Knowledge Base Training</a></li>
               <li><a href="#pricing" className="hover:text-sky-600 transition-colors">Agency Pricing</a></li>
@@ -53,14 +52,11 @@ export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
           </div>
 
           <div>
-            <h4 className="font-bold text-slate-900 text-xs mb-2">Security & Policies</h4>
+            <h4 className="font-bold text-slate-900 text-xs mb-2">Security & Reliability</h4>
             <ul className="space-y-1.5 text-slate-600 text-[11px]">
               <li className="flex items-center gap-1.5"><ShieldCheck className="w-3.5 h-3.5 text-sky-600" /> European & Irish Market Compliant</li>
-              <li className="flex items-center gap-1.5 text-sky-700 font-medium">
-                <RefreshCw className="w-3 h-3 text-sky-600" /> Same-Day Cancellation Guarantee
-              </li>
               <li>256-Bit SSL Data Encryption</li>
-              <li>Instant Formspree Email Dispatch</li>
+              <li>Instant Email Lead Dispatch</li>
             </ul>
           </div>
 
@@ -69,16 +65,9 @@ export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
         {/* Bottom Bar */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500">
           <div>© {new Date().getFullYear()} Indigo AI Technologies. All rights reserved.</div>
-          <div className="flex items-center gap-5 mt-2 sm:mt-0 font-medium">
-            <button onClick={() => onOpenLegalModal('privacy')} className="hover:text-sky-600 transition-colors">
-              Privacy Policy
-            </button>
-            <button onClick={() => onOpenLegalModal('terms')} className="hover:text-sky-600 transition-colors">
-              Terms of Service
-            </button>
-            <button onClick={() => onOpenLegalModal('terms')} className="text-sky-600 hover:text-sky-800 transition-colors font-semibold">
-              Same-Day Cancellation Policy
-            </button>
+          <div className="flex items-center gap-4 mt-2 sm:mt-0">
+            <span className="hover:text-slate-700 cursor-pointer">Privacy Policy</span>
+            <span className="hover:text-slate-700 cursor-pointer">Terms of Service</span>
           </div>
         </div>
 
@@ -86,4 +75,3 @@ export default function Footer({ onOpenEnquiryModal, onOpenLegalModal }) {
     </footer>
   );
 }
-

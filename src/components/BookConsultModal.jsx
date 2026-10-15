@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import { X, Calendar, CheckCircle2, ArrowRight, Loader2 } from 'lucide-react';
+import { X, Calendar, CheckCircle2, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { sendEmailToIndigo } from '../utils/sendEmail';
 
 export default function BookConsultModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -15,23 +13,12 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    await sendEmailToIndigo({
-      name: formData.name,
-      email: formData.email,
-      website: formData.website,
-      slot: formData.preferredDate,
-      subject: `⚡ New Strategy Booking Request from ${formData.name}`
-    });
-
-    setIsSubmitting(false);
     setStep(2);
     try {
       confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
-    } catch (err) {}
+    } catch (e) {}
   };
 
   return (
@@ -112,20 +99,10 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
                 className="w-full btn-blue-primary justify-center text-xs py-2.5 mt-2"
               >
-                {isSubmitting ? (
-                  <span className="flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    Dispatching to khaylenj@indigo.irish...
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-1.5">
-                    <span>Confirm Strategy Reservation</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
-                )}
+                <span>Confirm Strategy Reservation</span>
+                <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </form>
           </div>
@@ -137,7 +114,7 @@ export default function BookConsultModal({ isOpen, onClose }) {
 
             <h3 className="text-xl font-bold text-slate-900">Reservation Confirmed</h3>
             <p className="text-xs text-slate-600 leading-relaxed max-w-xs mx-auto">
-              Thank you, <strong>{formData.name}</strong>. Your strategy call request has been sent directly to <strong>khaylenj@indigo.irish</strong>.
+              Thank you, <strong>{formData.name}</strong>. A calendar invite has been dispatched to <strong>{formData.email}</strong> for <strong>{formData.preferredDate}</strong>.
             </p>
 
             <button
@@ -153,4 +130,3 @@ export default function BookConsultModal({ isOpen, onClose }) {
     </div>
   );
 }
-
